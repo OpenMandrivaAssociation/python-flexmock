@@ -29,7 +29,7 @@ Flexmock is a testing library for easy creation of mocks, stubs and fakes
 %doc html README.rst LICENSE
 #%%{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/%{module}.py
-%{py_platsitedir}/%{module}-%{version}-py%{python_version}.egg-info
+%{python3_sitelib}/%{module}-%{version}-py%{python_version}.egg-info
 #%%{python3_sitelib}/__pycache__/*.pyc
 
 #---------------------------------------------------------------------------
