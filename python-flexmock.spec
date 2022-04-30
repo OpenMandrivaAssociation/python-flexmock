@@ -8,7 +8,6 @@ Summary:	A Python library for easy creaation of mocks,stubs and fakes
 
 License:	BSD
 URL:		http://flexmock.readthedocs.org/
-#Source0:	https://github.com/bkabrda/flexmock/releases/tag/0.10.4/flexmock-%{version}.tar.gz
 Source0:	https://files.pythonhosted.org/packages/source/f/%{module}/%{module}-%{version}.tar.gz
 BuildArch:	noarch
  
@@ -30,8 +29,8 @@ Flexmock is a testing library for easy creation of mocks, stubs and fakes
 %doc html README.rst LICENSE
 #%%{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/%{module}.py
-%{python3_sitelib}/%{module}-%{version}-py?.?.egg-info
-%{python3_sitelib}/__pycache__/*.pyc
+%{py_platsitedir}/%{module}-%{version}-py%{python_version}.egg-info
+#%%{python3_sitelib}/__pycache__/*.pyc
 
 #---------------------------------------------------------------------------
 
