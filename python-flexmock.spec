@@ -1,7 +1,7 @@
 %global module flexmock
 
-Name:		python-flexmock
-Version:	0.10.10
+Name:		python-%{module}
+Version:	0.11.3
 Release:	1
 Group:		Development/Python
 Summary:	A Python library for easy creaation of mocks,stubs and fakes
@@ -28,7 +28,7 @@ Flexmock is a testing library for easy creation of mocks, stubs and fakes
 %files
 %doc html README.rst LICENSE
 #%%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{module}.py
+%{python3_sitelib}/%{module}/
 %{python3_sitelib}/%{module}-%{version}-py%{python_version}.egg-info
 #%%{python3_sitelib}/__pycache__/*.pyc
 
