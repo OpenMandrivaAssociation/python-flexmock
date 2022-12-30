@@ -12,7 +12,6 @@ Source0:	https://files.pythonhosted.org/packages/source/f/flexmock/flexmock-%{ve
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python3dist(pip)
-BuildRequires:	python3dist(poetry)
 BuildRequires:	python3dist(setuptools)
 BuildRequires:	python3dist(wheel)
 # docs
