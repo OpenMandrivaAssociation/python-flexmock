@@ -1,27 +1,27 @@
 # disable html doc due to a missing plugin for sphinx
 %bcond_with doc
 
+Summary:	A Python library for easy creaation of mocks,stubs and fakes
 Name:		python-flexmock
 Version:	0.11.3
 Release:	1
 Group:		Development/Python
-Summary:	A Python library for easy creaation of mocks,stubs and fakes
-
 License:	BSD
 URL:		http://flexmock.readthedocs.org/
 Source0:	https://files.pythonhosted.org/packages/source/f/flexmock/flexmock-%{version}.tar.gz
 BuildArch:	noarch
- 
-BuildRequires:	python-devel
-BuildRequires:	python-setuptools
+BuildRequires:	pkgconfig(python)
+BuildRequires:	python3dist(pip)
+BuildRequires:	python3dist(setuptools)
+BuildRequires:	python3dist(wheel)
 # docs
 %if %{with doc}
-BuildRequires:	python-sphinx
+BuildRequires:	python3dist(sphinx)
 %endif
 # for testing with various runners (twisted contains trial)
-BuildRequires:	python-nose
-BuildRequires:	python-pytest
-BuildRequires:	python-twisted
+BuildRequires:	python3dist(nose)
+BuildRequires:	python3dist(pytest)
+BuildRequires:	python3dist(twisted)
 
 %description
 Flexmock is a testing library for easy creation of mocks, stubs and fakes
