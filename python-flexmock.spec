@@ -7,7 +7,7 @@ Version:	0.12.1
 Release:	1
 Group:		Development/Python
 License:	BSD
-URL:		http://flexmock.readthedocs.org/
+URL:		https://flexmock.readthedocs.org/
 Source0:	https://files.pythonhosted.org/packages/source/f/flexmock/flexmock-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python)
