@@ -20,7 +20,7 @@ BuildRequires:	python3dist(wheel)
 BuildRequires:	python3dist(sphinx)
 %endif
 # for testing with various runners (twisted contains trial)
-BuildRequires:	python3dist(nose)
+#BuildRequires:	python3dist(nose)
 BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(twisted)
 
