@@ -1,57 +1,74 @@
-# disable html doc due to a missing plugin for sphinx
-%bcond_with doc
+%define module flexmock
+# disable html doc due to a missing theme module for sphinx
+%bcond doc 0
+%bcond tests 1
 
-Summary:	A Python library for easy creaation of mocks,stubs and fakes
 Name:		python-flexmock
-Version:	0.12.2
+Summary:	A Python library for easy creaation of mocks,stubs and fakes
+Version:	0.13.0
 Release:	1
+License:	BSD-2-Clause
 Group:		Development/Python
-License:	BSD
-URL:		https://flexmock.readthedocs.org/
-Source0:	https://files.pythonhosted.org/packages/source/f/flexmock/flexmock-%{version}.tar.gz
+# URL:		https://github.com/flexmock/flexmock
+URL:		https://flexmock.readthedocs.io/
+Source0:	https://github.com/flexmock/flexmock/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildSystem:	python
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python)
-BuildRequires:	python3dist(pip)
-BuildRequires:	python3dist(poetry-core)
-BuildRequires:	python3dist(setuptools)
-BuildRequires:	python3dist(wheel)
-# docs
+BuildRequires:	python%{pyver}dist(pip)
+BuildRequires:	python%{pyver}dist(poetry-core)
+BuildRequires:	python%{pyver}dist(setuptools)
+BuildRequires:	python%{pyver}dist(wheel)
 %if %{with doc}
-BuildRequires:	python3dist(sphinx)
+BuildRequires:	python%{pyver}dist(sphinx)
+BuildRequires:	python%{pyver}dist(myst-parser)
 %endif
-# for testing with various runners (twisted contains trial)
-#BuildRequires:	python3dist(nose)
-BuildRequires:	python3dist(pytest)
-BuildRequires:	python3dist(twisted)
+%if %{with tests}
+BuildRequires:	python%{pyver}dist(pytest)
+BuildRequires:	python%{pyver}dist(twisted)
+%endif
 
 %description
 Flexmock is a testing library for easy creation of mocks, stubs and fakes
 
-%files
-%license LICENSE
-%doc README.md
-%{?with_doc:%doc html}
-%{python3_sitelib}/flexmock/
-%{python3_sitelib}/flexmock*-info
-
-#---------------------------------------------------------------------------
-
-%prep
-%autosetup -p1 -n flexmock-%{version}
-
-# Remove bundled egg-info
-rm -rf flexmock.*-info
-
-# generate html docs
 %if %{with doc}
-sphinx-build docs html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+%package doc
+Summary:	Documentation for %{name}
+Requires:	%{name} = %{version}-%{release}
+
+%description doc
+Documentation for %{name}.
 %endif
 
-%build
-%py_build
+%prep -a
+# Remove bundled egg-info
+rm -rf %{module}.egg-info
 
-%install
-%py_install
+%if %{with doc}
+%install -a
+# Use sphinx-build to build html docs into buildroot docdir,
+# Doc generation requires the module to be installed in order to run successfully.
+PYTHONPATH="%{buildroot}%{python_sitelib}:${PWD}" \
+    sphinx-build -b html docs %{buildroot}%{_docdir}/%{name}-doc/html
+# remove .buildinfo and .doctrees
+rm -rf %{buildroot}%{_docdir}/%{name}-doc/html/{.buildinfo,.doctrees}
+%endif
 
+%if %{with tests}
+%check
+export CI=true
+export PYTHONPATH="%{buildroot}%{python_sitelib}:${PWD}"
+pytest
+%endif
+
+%files
+%doc README.md
+%license LICENSE
+%{python_sitelib}/%{module}
+%{python_sitelib}/%{module}-%{version}.dist-info
+
+%if %{with doc}
+%files doc
+%doc html README.md LICENSE
+%endif
