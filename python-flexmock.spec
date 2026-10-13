@@ -1,12 +1,13 @@
 %define module flexmock
 # disable html doc due to a missing theme module for sphinx
 %bcond doc 0
-%bcond tests 1
+# twisted is not built for Python 3.15
+%bcond tests 0
 
 Name:		python-flexmock
 Summary:	A Python library for easy creaation of mocks,stubs and fakes
 Version:	0.13.0
-Release:	1
+Release:	2
 License:	BSD-2-Clause
 Group:		Development/Python
 # URL:		https://github.com/flexmock/flexmock
@@ -15,7 +16,7 @@ Source0:	https://github.com/flexmock/flexmock/archive/v%{version}/%{name}-%{vers
 
 BuildSystem:	python
 BuildArch:	noarch
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
 BuildRequires:	python%{pyver}dist(pip)
 BuildRequires:	python%{pyver}dist(poetry-core)
 BuildRequires:	python%{pyver}dist(setuptools)
